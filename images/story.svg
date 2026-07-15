@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 560" role="img" aria-label="Decorative floral illustration">
+  <defs>
+    <linearGradient id="bgs" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBEFEA"/>
+      <stop offset="1" stop-color="#EFD0C9"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="560" fill="url(#bgs)"/>
+  <g fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.65" stroke-linecap="round">
+    <path d="M120 470 C 150 400, 210 380, 250 330"/>
+    <path d="M250 330 C 290 285, 300 240, 290 200"/>
+    <path d="M250 330 q -40 -10 -52 -46 q 40 -6 52 46"/>
+    <path d="M270 300 q 42 -6 52 -44 q -40 -8 -52 44"/>
+    <path d="M282 240 q -36 -12 -40 -48 q 38 0 40 48"/>
+    <circle cx="290" cy="185" r="22"/>
+    <circle cx="290" cy="185" r="11"/>
+    <circle cx="248" cy="160" r="14"/>
+    <circle cx="330" cy="165" r="14"/>
+    <path d="M100 470 q 140 40 280 0" opacity="0.5"/>
+  </g>
+  <g font-family="Georgia, 'Times New Roman', serif" text-anchor="middle">
+    <circle cx="240" cy="90" r="30" fill="none" stroke="#C9A96E" opacity="0.6" stroke-width="1.4"/>
+    <text x="240" y="101" font-size="30" fill="#B27680">T</text>
+  </g>
+</svg>
