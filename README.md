@@ -1,6 +1,6 @@
-# Bouquets by Tavi
+# Flowers by Tavi
 
-A single-page, mobile-responsive website for Bouquets by Tavi — handcrafted flower bouquets. Static HTML/CSS/JS with no build step: browse bouquets and occasions, then send an enquiry.
+A single-page, mobile-responsive website for Flowers by Tavi — handcrafted flower bouquets. Static HTML/CSS/JS with no build step: browse bouquets and occasions, then send an enquiry.
 
 ## Run it locally
 
@@ -41,7 +41,7 @@ Slots: `hero.svg` (main photo), `bouquet-1.svg` … `bouquet-4.svg` (the four bo
 Everything is plain text in `index.html`:
 
 - **Bouquet names and prices** — the `bouquet-card` blocks in the "Our Bouquets" section. If you rename a bouquet, also update its `data-bouquet` attribute and the matching `<option>` in the "Bouquet of interest" dropdown.
-- **Contact details** — email, phone, and Instagram links in the footer (currently placeholders).
+- **Contact details** — email, phone, and Instagram links in the footer.
 - **Announcement bar, story text, thank-you message** — edit in place.
 
 ## Deploy

@@ -1,7 +1,7 @@
 // ── Configuration ────────────────────────────────────────────────
 // Create a free form at https://formspree.io and paste its ID here.
 const FORMSPREE_ID = "YOUR_FORM_ID";
-const FALLBACK_EMAIL = "hello@bouquetsbytavi.com";
+const FALLBACK_EMAIL = "flowersbytavi@outlook.com";
 
 // ── Mobile navigation ────────────────────────────────────────────
 const navToggle = document.querySelector(".nav-toggle");
