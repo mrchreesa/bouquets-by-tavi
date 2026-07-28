@@ -325,10 +325,119 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 
 .bouquet-card { text-align: center; }
 
-.bouquet-card img {
+.card-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
   border-radius: 4px;
   box-shadow: 0 14px 30px -18px rgba(169, 106, 116, 0.4);
 }
+
+.card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-desc,
+.card-note,
+.card-list {
+  text-align: left;
+}
+
+.card-desc {
+  font-size: 0.92rem;
+  margin: 0.9rem 0;
+}
+
+.card-subhead {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: left;
+  margin: 1rem 0 0.4rem;
+}
+
+.card-list {
+  list-style: disc;
+  font-size: 0.88rem;
+  margin: 0 0 0.3rem;
+  padding-left: 1.15rem;
+}
+
+.card-list li { margin-bottom: 0.25rem; }
+
+.card-note {
+  font-size: 0.78rem;
+  font-style: italic;
+  opacity: 0.85;
+  margin: 0.9rem 0 1.1rem;
+}
+
+/* Carousel (products with 2 photos) */
+
+.card-carousel .carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-carousel img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-carousel img.is-active { opacity: 1; }
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(253, 248, 242, 0.85);
+  color: var(--ink);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.carousel-arrow:hover { background: var(--cream-card); }
+
+.carousel-prev { left: 8px; }
+.carousel-next { right: 8px; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(253, 248, 242, 0.65);
+  cursor: pointer;
+}
+
+.carousel-dot.is-active { background: var(--cream-card); box-shadow: 0 0 0 1px var(--gold); }
 
 .bouquet-card h3 {
   font-size: 1.4rem;
@@ -347,7 +456,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 }
 
 @media (min-width: 1000px) {
-  .bouquet-grid { grid-template-columns: repeat(4, 1fr); }
+  .bouquet-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* ── Occasions ────────────────────────────────────────────────── */
