@@ -27,20 +27,21 @@ Enquiries are delivered by [Formspree](https://formspree.io) — free, no backen
 
 Until this is done, the form shows visitors a friendly "form not connected yet" message with the fallback email instead of sending.
 
-## Replace the placeholder images
+## Replace or add product photos
 
-The soft pink illustrations in `images/` are placeholders. To use real photos:
+Product photos live in `images/` (`1.PNG`, `2.PNG`, `3.PNG`, `4.PNG`/`4.1.PNG`, `5.jpg.jpeg`/`5.1.jpg.jpeg`). To swap one out, drop the new file into `images/` and update the matching `<img src="...">` in the `#bouquets` section of `index.html`. Cards are square-cropped (`object-fit: cover`), so any photo aspect ratio works. The hero and Our Story photos (`hero.svg`, `story.svg`) are separate and still placeholders — see the section below.
 
-1. Drop your photo into `images/` (e.g. `images/bouquet-1.jpg`).
-2. In `index.html`, find the matching `<!-- REPLACE with a real photo -->` comment and update the `src` on the line below it.
+Two products (Luxury Heart Rose Box, Signature Rose Bouquet) show a 2-photo carousel. To add a second photo to any other product, wrap its `<img>` in a `<div class="card-media card-carousel" data-carousel>` with a `.carousel-track` containing both images plus the arrow/dot buttons — copy the markup from one of the existing carousel cards.
 
-Slots: `hero.svg` (main photo), `bouquet-1.svg` … `bouquet-4.svg` (the four bouquet cards), `story.svg` (About photo). Portrait-orientation photos work best (roughly 5:6).
+## Replace the remaining placeholder images
 
-## Edit bouquets, prices, and copy
+`hero.svg` (hero photo) and `story.svg` (Our Story photo) are still on-brand SVG placeholders. Drop a real photo into `images/`, then update the matching `src` next to the `<!-- REPLACE with a real photo -->` comment in `index.html`.
+
+## Edit products, prices, and copy
 
 Everything is plain text in `index.html`:
 
-- **Bouquet names and prices** — the `bouquet-card` blocks in the "Our Bouquets" section. If you rename a bouquet, also update its `data-bouquet` attribute and the matching `<option>` in the "Bouquet of interest" dropdown.
+- **Product names, prices, descriptions, and options** — the `bouquet-card` blocks in the "Our Collection" section. If you rename a product, also update its `data-bouquet` attribute and the matching `<option>` in the "Item of interest" dropdown.
 - **Contact details** — email, phone, and Instagram links in the footer.
 - **Announcement bar, story text, thank-you message** — edit in place.
 
