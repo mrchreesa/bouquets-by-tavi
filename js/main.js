@@ -20,6 +20,25 @@ navMenu.addEventListener("click", (event) => {
   }
 });
 
+// ── Product photo carousels ──────────────────────────────────────
+document.querySelectorAll(".card-carousel").forEach((carousel) => {
+  const images = carousel.querySelectorAll(".carousel-track img");
+  const dots = carousel.querySelectorAll(".carousel-dot");
+  let activeIndex = 0;
+
+  function show(nextIndex) {
+    images[activeIndex].classList.remove("is-active");
+    dots[activeIndex].classList.remove("is-active");
+    activeIndex = (nextIndex + images.length) % images.length;
+    images[activeIndex].classList.add("is-active");
+    dots[activeIndex].classList.add("is-active");
+  }
+
+  carousel.querySelector(".carousel-prev").addEventListener("click", () => show(activeIndex - 1));
+  carousel.querySelector(".carousel-next").addEventListener("click", () => show(activeIndex + 1));
+  dots.forEach((dot, dotIndex) => dot.addEventListener("click", () => show(dotIndex)));
+});
+
 // ── Pre-selection from bouquet cards and occasion tiles ──────────
 const bouquetSelect = document.getElementById("bouquet");
 const occasionSelect = document.getElementById("occasion");
