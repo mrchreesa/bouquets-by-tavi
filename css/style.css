@@ -67,7 +67,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 
 .promo-badge {
   position: absolute;
-  top: 0;
+  top: -1.3rem;
   left: 0;
   z-index: 5;
   white-space: nowrap;
@@ -115,6 +115,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   display: block;
   text-decoration: none;
   line-height: 1.1;
+  margin-top: 1.3rem;
 }
 
 .brand-logo {
