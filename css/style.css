@@ -188,17 +188,13 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 
 @media (min-width: 760px) {
   .nav {
-    flex-direction: column;
-    padding: 1.1rem 1.25rem 0;
-    gap: 0.35rem;
+    padding: 1rem 1.25rem;
   }
-  .brand { align-items: center; }
-  .brand-name { font-size: 1.7rem; }
+  .brand-name { font-size: 1.5rem; }
   .nav-toggle { display: none; }
   .nav-menu {
     display: flex;
-    gap: 2.6rem;
-    padding: 0.35rem 0 0;
+    gap: 2.4rem;
   }
   .nav-menu a { padding: 0.55em 0; }
 }
