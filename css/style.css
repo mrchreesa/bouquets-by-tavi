@@ -63,22 +63,11 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   letter-spacing: 0.22em;
   text-transform: uppercase;
   padding: 0.55em 1em;
-  overflow: hidden;
-}
-
-.announcement-track {
-  display: inline-block;
-  animation: announcement-slide 6s ease-in-out infinite alternate;
-}
-
-@keyframes announcement-slide {
-  from { transform: translateX(-24px); }
-  to { transform: translateX(24px); }
 }
 
 .promo-badge {
   display: inline-block;
-  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
   padding: 0.25em 0.75em;
   border: 1px solid var(--gold);
   border-radius: 999px;
@@ -89,6 +78,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   text-transform: uppercase;
   color: var(--rose-dark);
   background: var(--blush-light);
+  animation: promo-badge-slide 6s ease-in-out infinite alternate;
+}
+
+@keyframes promo-badge-slide {
+  from { transform: translateX(-16px); }
+  to { transform: translateX(16px); }
 }
 
 /* ── Header / navigation ──────────────────────────────────────── */
@@ -848,5 +843,5 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
-  .announcement-track { animation: none; }
+  .promo-badge { animation: none; }
 }
