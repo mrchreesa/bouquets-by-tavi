@@ -115,20 +115,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   line-height: 1.1;
 }
 
-.brand-name {
-  font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
-
-.brand-sub {
-  font-family: var(--font-script);
-  font-size: 1.05rem;
-  color: var(--gold);
-  margin-top: 0.05em;
+.brand-logo {
+  display: block;
+  height: 56px;
+  width: auto;
 }
 
 .nav-menu { display: none; }
@@ -185,7 +175,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   .nav {
     padding: 1rem 1.25rem;
   }
-  .brand-name { font-size: 1.5rem; }
+  .brand-logo { height: 72px; }
   .nav-toggle { display: none; }
   .nav-menu {
     display: flex;
