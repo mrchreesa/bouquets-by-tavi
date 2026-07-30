@@ -20,6 +20,13 @@ navMenu.addEventListener("click", (event) => {
   }
 });
 
+// ── Hero CTA dropdown ─────────────────────────────────────────────
+document.querySelectorAll(".hero-cta-menu a").forEach((link) => {
+  link.addEventListener("click", () => {
+    link.closest(".hero-cta").removeAttribute("open");
+  });
+});
+
 // ── Product photo carousels ──────────────────────────────────────
 document.querySelectorAll(".card-carousel").forEach((carousel) => {
   const images = carousel.querySelectorAll(".carousel-track img");
