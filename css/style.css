@@ -627,10 +627,16 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 
 .story h2 { text-align: center; margin-bottom: 1.4rem; }
 
-.story-text p:not(.kicker) { line-height: 1.9; max-width: 34rem; margin: 0 auto; text-align: center; }
+.story-text p:not(.kicker) { line-height: 1.9; max-width: 34rem; margin: 0 auto 1.1rem; text-align: center; }
+
+.story-text p:not(.kicker):last-of-type { margin-bottom: 0; }
+
+.story-text p.story-signature { margin-top: 0.5rem; }
+
+.story-signature .script { font-size: 2rem; line-height: 1.2; color: var(--rose-dark); }
 
 @media (min-width: 820px) {
-  .story-inner { grid-template-columns: 1fr 1.15fr; }
+  .story-inner { grid-template-columns: 1fr 1.15fr; align-items: start; }
   .story .kicker, .story h2, .story-text p:not(.kicker) { text-align: left; margin-left: 0; }
 }
 
