@@ -323,6 +323,21 @@
             <p class="field-hint">Choosing &ldquo;Something custom&rdquo; below unlocks a couple of quick questions so we can design something just for you.</p>
           </div>
         </div>
+        <div class="form-row" id="custom-order-fields" hidden>
+          <div class="field">
+            <label for="budget">Budget range <span class="optional">(optional)</span></label>
+            <select id="budget" name="budget">
+              <option value="">Not sure yet</option>
+              <option>Under &pound;50</option>
+              <option>&pound;50&ndash;&pound;100</option>
+              <option>&pound;100+</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="style-preference">Colour &amp; style preference <span class="optional">(optional)</span></label>
+            <input type="text" id="style-preference" name="style_preference" placeholder="Pastels, bold reds, wildflower look&hellip;">
+          </div>
+        </div>
         <div class="field">
           <label for="message">Message <span aria-hidden="true">*</span></label>
           <textarea id="message" name="message" rows="5" required placeholder="Tell us what you have in mind — colours, budget, delivery details…"></textarea>

@@ -661,6 +661,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 }
 
 .form-row { display: grid; gap: 1.2rem; }
+.form-row[hidden] { display: none; }
 
 .field { margin-bottom: 1.2rem; }
 
