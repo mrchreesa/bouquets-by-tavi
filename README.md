@@ -67,3 +67,5 @@ Any static host works. Easiest options:
 - **GitHub Pages**: push this repo to GitHub → Settings → Pages → deploy from branch
 
 No build step or configuration needed.
+
+Connection test completed successfully.
