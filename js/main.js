@@ -55,6 +55,61 @@ function scrollToForm() {
   enquirySection.scrollIntoView({ behavior: "smooth" });
 }
 
+// ── Enquiry intent paths ─────────────────────────────────────────
+const COLLECTION = "Order from the collection";
+const CUSTOM = "Design something custom";
+
+const pathFieldsets = {
+  [COLLECTION]: document.getElementById("path-collection"),
+  [CUSTOM]: document.getElementById("path-custom"),
+};
+const enquiryDetails = document.getElementById("enquiry-details");
+const messageField = document.getElementById("message");
+const messageLabel = document.querySelector('label[for="message"]');
+
+// The message field does double duty: an optional extras box when ordering a
+// listed piece, and the required design brief when commissioning something new.
+const MESSAGE_COPY = {
+  [COLLECTION]: {
+    label: 'Anything else <span class="optional">(optional)</span>',
+    placeholder: "Size, colours, a note for the card…",
+    required: false,
+  },
+  [CUSTOM]: {
+    label: 'What you have in mind <span aria-hidden="true">*</span>',
+    placeholder: "Colours, style, who it's for…",
+    required: true,
+  },
+};
+
+function selectedIntent() {
+  return document.querySelector('input[name="intent"]:checked')?.value || "";
+}
+
+function applyIntent() {
+  const intent = selectedIntent();
+  for (const [value, fieldset] of Object.entries(pathFieldsets)) {
+    const active = value === intent;
+    fieldset.hidden = !active;
+    // `disabled` keeps the inactive path out of FormData entirely, so a
+    // submission never carries both paths' keys.
+    fieldset.disabled = !active;
+  }
+  enquiryDetails.hidden = intent === "";
+
+  const copy = MESSAGE_COPY[intent];
+  if (copy) {
+    messageLabel.innerHTML = copy.label;
+    messageField.placeholder = copy.placeholder;
+    messageField.required = copy.required;
+  }
+}
+
+document.querySelectorAll('input[name="intent"]').forEach((radio) => {
+  radio.addEventListener("change", applyIntent);
+});
+applyIntent();
+
 document.querySelectorAll(".enquire-btn").forEach((button) => {
   button.addEventListener("click", () => {
     bouquetSelect.value = button.dataset.bouquet;
