@@ -803,6 +803,17 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   margin-bottom: 0.45rem;
 }
 
+.field-group {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1.2rem;
+  min-width: 0;
+}
+
+.field-group > .field-label {
+  padding: 0;
+}
+
 .radio-row { display: flex; gap: 1.6rem; }
 
 .field .radio-option {

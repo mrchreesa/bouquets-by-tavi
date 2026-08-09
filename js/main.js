@@ -50,23 +50,14 @@ document.querySelectorAll(".card-carousel").forEach((carousel) => {
 const bouquetSelect = document.getElementById("bouquet");
 const occasionSelect = document.getElementById("occasion");
 const enquirySection = document.getElementById("enquiry");
-const customOrderFields = document.getElementById("custom-order-fields");
 
 function scrollToForm() {
   enquirySection.scrollIntoView({ behavior: "smooth" });
 }
 
-function toggleCustomOrderFields() {
-  customOrderFields.hidden = bouquetSelect.value !== "Something custom";
-}
-
-bouquetSelect.addEventListener("change", toggleCustomOrderFields);
-toggleCustomOrderFields();
-
 document.querySelectorAll(".enquire-btn").forEach((button) => {
   button.addEventListener("click", () => {
     bouquetSelect.value = button.dataset.bouquet;
-    toggleCustomOrderFields();
     scrollToForm();
   });
 });
