@@ -724,13 +724,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   margin-top: 0.4rem;
 }
 
-.field-hint {
-  color: var(--text);
-  font-size: 0.82rem;
-  font-weight: 300;
-  margin-top: 0.4rem;
-}
-
 .intent-fieldset {
   border: 0;
   padding: 0;
