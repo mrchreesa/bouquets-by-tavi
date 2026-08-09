@@ -112,6 +112,11 @@ applyIntent();
 
 document.querySelectorAll(".enquire-btn").forEach((button) => {
   button.addEventListener("click", () => {
+    const collectionRadio = document.querySelector(
+      `input[name="intent"][value="${COLLECTION}"]`
+    );
+    collectionRadio.checked = true;
+    applyIntent();
     bouquetSelect.value = button.dataset.bouquet;
     scrollToForm();
   });
