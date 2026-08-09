@@ -97,6 +97,16 @@ function applyIntent() {
   }
   enquiryDetails.hidden = intent === "";
 
+  // Switching paths changes which fields are required, so any error raised for the
+  // previous path is now meaningless — and would otherwise sit stale under a
+  // relabelled field, or reappear when the user switches back. Clear them all.
+  document.querySelectorAll("#enquiry-form .field-error").forEach((error) => {
+    error.hidden = true;
+  });
+  document.querySelectorAll('#enquiry-form [aria-invalid="true"]').forEach((field) => {
+    field.setAttribute("aria-invalid", "false");
+  });
+
   const copy = MESSAGE_COPY[intent];
   if (copy) {
     messageLabel.innerHTML = copy.label;
