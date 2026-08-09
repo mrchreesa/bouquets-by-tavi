@@ -143,6 +143,8 @@ document.querySelectorAll(".occasion-tile").forEach((tile) => {
 const form = document.getElementById("enquiry-form");
 const statusEl = form.querySelector(".form-status");
 const successEl = document.getElementById("form-success");
+const submitButton = form.querySelector('[type="submit"]');
+const submitLabel = submitButton.textContent;
 
 function setFieldError(input, show) {
   const error = input.closest(".field").querySelector(".field-error");
@@ -198,7 +200,6 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  const submitButton = form.querySelector('[type="submit"]');
   submitButton.disabled = true;
   submitButton.textContent = "Sending…";
 
@@ -216,6 +217,6 @@ form.addEventListener("submit", async (event) => {
     showStatus(`Something went wrong sending your enquiry — please try again, or email us at ${FALLBACK_EMAIL}.`, true);
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Send Enquiry";
+    submitButton.textContent = submitLabel;
   }
 });
