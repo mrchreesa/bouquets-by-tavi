@@ -293,57 +293,25 @@
             </label>
           </div>
         </fieldset>
-        <div class="form-row">
+        <fieldset id="path-collection" class="path-fieldset">
+          <legend class="visually-hidden">Your piece</legend>
           <div class="field">
-            <label for="name">Name <span aria-hidden="true">*</span></label>
-            <input type="text" id="name" name="name" required autocomplete="name">
-            <p class="field-error" hidden>Please tell us your name.</p>
-          </div>
-          <div class="field">
-            <label for="email">Email <span aria-hidden="true">*</span></label>
-            <input type="email" id="email" name="email" required autocomplete="email">
-            <p class="field-error" hidden>Please enter a valid email address.</p>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label for="phone">Phone <span class="optional">(optional)</span></label>
-            <input type="tel" id="phone" name="phone" autocomplete="tel">
-          </div>
-          <div class="field">
-            <label for="needed-by">Needed by <span class="optional">(optional)</span></label>
-            <input type="date" id="needed-by" name="needed_by">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label for="occasion">Occasion</label>
-            <select id="occasion" name="occasion">
-              <option value="">Choose an occasion&hellip;</option>
-              <option>Birthday</option>
-              <option>Anniversary</option>
-              <option>Romance</option>
-              <option>Congratulations</option>
-              <option>Thank You</option>
-              <option>Sympathy</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="bouquet">Item of interest</label>
+            <label for="bouquet">Which piece <span aria-hidden="true">*</span></label>
             <select id="bouquet" name="bouquet">
-              <option value="">Not sure yet</option>
+              <option value="">Choose a piece&hellip;</option>
               <option>Blush Basket</option>
               <option>Princess Treatment Basket</option>
               <option>Luxury Chocolate Gift Cake</option>
               <option>Luxury Rose Box</option>
               <option>Signature Rose Bouquet</option>
-              <option>Something custom</option>
+              <option>Not sure yet</option>
             </select>
-            <p class="field-hint">Choosing &ldquo;Something custom&rdquo; unlocks a couple of quick questions so we can design something just for you.</p>
+            <p class="field-error" hidden>Please choose which piece you&rsquo;re interested in.</p>
           </div>
-        </div>
-        <div class="form-row" id="custom-order-fields" hidden>
+        </fieldset>
+
+        <fieldset id="path-custom" class="path-fieldset">
+          <legend class="visually-hidden">Your custom design</legend>
           <div class="field">
             <label for="budget">Budget range <span class="optional">(optional)</span></label>
             <select id="budget" name="budget">
@@ -353,18 +321,59 @@
               <option>&pound;100+</option>
             </select>
           </div>
-          <div class="field">
-            <label for="style-preference">Colour &amp; style preference <span class="optional">(optional)</span></label>
-            <input type="text" id="style-preference" name="style_preference" placeholder="Pastels, bold reds, wildflower look&hellip;">
+        </fieldset>
+
+        <div id="enquiry-details">
+          <div class="form-row">
+            <div class="field">
+              <label for="occasion">Occasion <span class="optional">(optional)</span></label>
+              <select id="occasion" name="occasion">
+                <option value="">Choose an occasion&hellip;</option>
+                <option>Birthday</option>
+                <option>Anniversary</option>
+                <option>Romance</option>
+                <option>Congratulations</option>
+                <option>Thank You</option>
+                <option>Sympathy</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="needed-by">When for <span class="optional">(optional)</span></label>
+              <input type="date" id="needed-by" name="needed_by">
+            </div>
           </div>
+          <div class="field">
+            <span class="field-label">Delivery or pickup <span class="optional">(optional)</span></span>
+            <div class="radio-row">
+              <label class="radio-option">
+                <input type="radio" name="fulfilment" value="Delivery"> Delivery
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="fulfilment" value="Pickup"> Pickup
+              </label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Name <span aria-hidden="true">*</span></label>
+              <input type="text" id="name" name="name" required autocomplete="name">
+              <p class="field-error" hidden>Please tell us your name.</p>
+            </div>
+            <div class="field">
+              <label for="email">Email <span aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" required autocomplete="email">
+              <p class="field-error" hidden>Please enter a valid email address.</p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Anything else <span class="optional">(optional)</span></label>
+            <textarea id="message" name="message" rows="5" placeholder="Size, colours, a note for the card&hellip;"></textarea>
+            <p class="field-error" hidden>Please tell us a little about what you&rsquo;re looking for.</p>
+          </div>
+          <button type="submit" class="btn">Submit</button>
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
         </div>
-        <div class="field">
-          <label for="message">Message <span aria-hidden="true">*</span></label>
-          <textarea id="message" name="message" rows="5" required placeholder="Tell us what you have in mind — colours, budget, delivery details…"></textarea>
-          <p class="field-error" hidden>Please tell us a little about what you&rsquo;re looking for.</p>
-        </div>
-        <button type="submit" class="btn">Submit</button>
-        <p class="form-status" role="status" aria-live="polite" hidden></p>
       </form>
 
       <div id="form-success" class="form-success" hidden>
