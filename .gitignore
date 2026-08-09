@@ -2,3 +2,8 @@
 .superpowers/
 .claude/worktrees/
 .DS_Store
+
+# Secrets — never commit. The enquiry backend reads SMTP credentials from here.
+.env
+.env.*
+!.env.example
