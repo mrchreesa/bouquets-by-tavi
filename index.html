@@ -270,10 +270,29 @@
     <section id="enquiry" class="section enquiry">
       <div class="scallop scallop-top" aria-hidden="true"></div>
       <p class="kicker">Get in touch</p>
-      <h2>Send an Enquiry / Customise Orders</h2>
-      <p class="section-sub">Tell us about your occasion &mdash; from our signature pieces to a fully custom design &mdash; and we&rsquo;ll craft something beautiful together.</p>
+      <h2>What can we help you with?</h2>
+      <p class="section-sub">Pick the option that fits and we&rsquo;ll take it from there.</p>
 
       <form id="enquiry-form" class="enquiry-form" novalidate>
+        <fieldset class="intent-fieldset">
+          <legend class="visually-hidden">What can we help you with?</legend>
+          <div class="intent-grid">
+            <label class="intent-card">
+              <input type="radio" name="intent" value="Order from the collection" class="visually-hidden">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M16 27 v-9"/><path d="M16 18 q -7 -1 -7 -9 q 7 1 7 9"/><path d="M16 18 q 7 -1 7 -9 q -7 1 -7 9"/><path d="M11 24 h10"/>
+              </svg>
+              <span>Order from the collection</span>
+            </label>
+            <label class="intent-card">
+              <input type="radio" name="intent" value="Design something custom" class="visually-hidden">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M16 5 v7 M16 20 v7 M5 16 h7 M20 16 h7"/><path d="M9.5 9.5 l4 4 M18.5 18.5 l4 4 M22.5 9.5 l-4 4 M13.5 18.5 l-4 4"/>
+              </svg>
+              <span>Design something custom</span>
+            </label>
+          </div>
+        </fieldset>
         <div class="form-row">
           <div class="field">
             <label for="name">Name <span aria-hidden="true">*</span></label>
