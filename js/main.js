@@ -143,11 +143,17 @@ function setFieldError(input, show) {
 function validate() {
   const email = form.elements.email;
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+  const intent = selectedIntent();
   const checks = [
     [form.elements.name, form.elements.name.value.trim() !== ""],
     [email, emailOk],
-    [form.elements.message, form.elements.message.value.trim() !== ""],
   ];
+  if (intent === COLLECTION) {
+    checks.push([form.elements.bouquet, form.elements.bouquet.value !== ""]);
+  }
+  if (intent === CUSTOM) {
+    checks.push([form.elements.message, form.elements.message.value.trim() !== ""]);
+  }
   let valid = true;
   for (const [input, ok] of checks) {
     setFieldError(input, !ok);
@@ -159,6 +165,8 @@ function validate() {
 ["name", "email", "message"].forEach((id) => {
   form.elements[id].addEventListener("input", () => setFieldError(form.elements[id], false));
 });
+
+bouquetSelect.addEventListener("change", () => setFieldError(bouquetSelect, false));
 
 function showStatus(text, isError) {
   statusEl.textContent = text;
