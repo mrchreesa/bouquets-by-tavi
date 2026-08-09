@@ -29,9 +29,9 @@ Until this is done, the form shows visitors a friendly "form not connected yet" 
 
 ## Replace or add product photos
 
-Product photos live in `images/` (`1.PNG`, `2.PNG`, `3.PNG`, `4.PNG`/`4.1.PNG`, `5.jpg.jpeg`/`5.1.jpg.jpeg`). To swap one out, drop the new file into `images/` and update the matching `<img src="...">` in the `#bouquets` section of `index.html`. Cards are square-cropped (`object-fit: cover`), so any photo aspect ratio works. The hero image is an animated illustration (see below) and the Our Story photo (`story.svg`) is still a placeholder.
+Product photos live in `images/` (`1.PNG`, `2.PNG`, `3.PNG`, `4.PNG`/`4.1.PNG`, `5.jpg.jpeg`/`5.1.jpg.jpeg`). To swap one out, drop the new file into `images/` and update the matching `<img src="...">` in the `#bouquets` section of `index.html`. Cards are square-cropped (`object-fit: cover`), so any photo aspect ratio works. The hero image and the Our Story image are both generated animated illustrations (see below), not photos.
 
-Two products (Luxury Heart Rose Box, Signature Rose Bouquet) show a 2-photo carousel. To add a second photo to any other product, wrap its `<img>` in a `<div class="card-media card-carousel" data-carousel>` with a `.carousel-track` containing both images plus the arrow/dot buttons — copy the markup from one of the existing carousel cards.
+Two products (Luxury Rose Box, Signature Rose Bouquet) show a 2-photo carousel. To add a second photo to any other product, wrap its `<img>` in a `<div class="card-media card-carousel" data-carousel>` with a `.carousel-track` containing both images plus the arrow/dot buttons — copy the markup from one of the existing carousel cards.
 
 ## The animated hero bouquet
 
@@ -47,9 +47,15 @@ The bloom layout (positions, sizes, flower type, colour family, timing) lives in
 
 The file is 240 KB raw but ~22 KB gzipped, which is what GitHub Pages actually serves. It is loaded via a plain `<img>` tag, which keeps its CSS scoped to the SVG and out of the page. All motion sits behind `prefers-reduced-motion: no-preference`, so visitors who ask for reduced motion get the finished bouquet with no animation at all.
 
-## Replace the remaining placeholder image
+## The animated Our Story bouquet
 
-`story.svg` (Our Story photo) is still an on-brand SVG placeholder. Drop a real photo into `images/`, then update the matching `src` next to the `<!-- REPLACE with a real photo -->` comment in `index.html`.
+`images/story.svg` is a generated illustration too — a delicate gold line-art bouquet in front of a softly pulsing blush heart, matching the hero's palette at a much smaller scale. Same rule applies: **don't hand-edit the SVG**, edit `tools/gen_story_bouquet.py` and regenerate:
+
+```bash
+python3 tools/gen_story_bouquet.py images/story.svg
+```
+
+If you'd rather use a real photo of Tavi instead, just drop it into `images/` and update the `<img src="...">` in the `#story` section of `index.html` — no need to keep the generated illustration once you have one.
 
 ## Edit products, prices, and copy
 

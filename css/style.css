@@ -454,6 +454,20 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 
 .card-list li { margin-bottom: 0.25rem; }
 
+.badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: var(--rose-dark);
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
 .card-note {
   font-size: 0.78rem;
   font-style: italic;
@@ -858,6 +872,10 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 .legal-main h2 { font-size: 1.3rem; margin: 2rem 0 0.7rem; }
 
 .legal-main p { font-size: 0.96rem; margin-bottom: 1rem; }
+
+.legal-main ul { font-size: 0.96rem; margin: -0.4rem 0 1rem; padding-left: 1.25rem; }
+
+.legal-main li { margin-bottom: 0.3rem; }
 
 .legal-main a { color: var(--rose-dark); }
 
