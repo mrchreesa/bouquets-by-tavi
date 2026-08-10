@@ -61,7 +61,7 @@ If you'd rather use a real photo of Tavi instead, just drop it into `images/` an
 
 Everything is plain text in `index.html`:
 
-- **Product names, prices, descriptions, and options** — the `bouquet-card` blocks in the "Our Collection" section. If you rename a product, also update its `data-bouquet` attribute and the matching `<option>` in the "Item of interest" dropdown.
+- **Product names, prices, descriptions, and options** — the `bouquet-card` blocks in the "Our Collection" section. If you rename a product, also update its `data-bouquet` attribute and the matching `<option>` in the "Which piece" dropdown inside `#path-collection`.
 - **Contact details** — email, phone, and Instagram links in the footer.
 - **Announcement bar, story text, thank-you message** — edit in place.
 

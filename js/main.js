@@ -50,23 +50,84 @@ document.querySelectorAll(".card-carousel").forEach((carousel) => {
 const bouquetSelect = document.getElementById("bouquet");
 const occasionSelect = document.getElementById("occasion");
 const enquirySection = document.getElementById("enquiry");
-const customOrderFields = document.getElementById("custom-order-fields");
 
 function scrollToForm() {
   enquirySection.scrollIntoView({ behavior: "smooth" });
 }
 
-function toggleCustomOrderFields() {
-  customOrderFields.hidden = bouquetSelect.value !== "Something custom";
+// ── Enquiry intent paths ─────────────────────────────────────────
+const COLLECTION = "Order from the collection";
+const CUSTOM = "Design something custom";
+
+const pathFieldsets = {
+  [COLLECTION]: document.getElementById("path-collection"),
+  [CUSTOM]: document.getElementById("path-custom"),
+};
+const enquiryDetails = document.getElementById("enquiry-details");
+const messageField = document.getElementById("message");
+const messageLabel = document.querySelector('label[for="message"]');
+
+// The message field does double duty: an optional extras box when ordering a
+// listed piece, and the required design brief when commissioning something new.
+const MESSAGE_COPY = {
+  [COLLECTION]: {
+    label: 'Anything else <span class="optional">(optional)</span>',
+    placeholder: "Size, colours, a note for the card…",
+    required: false,
+  },
+  [CUSTOM]: {
+    label: 'What you have in mind <span aria-hidden="true">*</span>',
+    placeholder: "Colours, style, who it's for…",
+    required: true,
+  },
+};
+
+function selectedIntent() {
+  return document.querySelector('input[name="intent"]:checked')?.value || "";
 }
 
-bouquetSelect.addEventListener("change", toggleCustomOrderFields);
-toggleCustomOrderFields();
+function applyIntent() {
+  const intent = selectedIntent();
+  for (const [value, fieldset] of Object.entries(pathFieldsets)) {
+    const active = value === intent;
+    fieldset.hidden = !active;
+    // `disabled` keeps the inactive path out of FormData entirely, so a
+    // submission never carries both paths' keys.
+    fieldset.disabled = !active;
+  }
+  enquiryDetails.hidden = intent === "";
+
+  // Switching paths changes which fields are required, so any error raised for the
+  // previous path is now meaningless — and would otherwise sit stale under a
+  // relabelled field, or reappear when the user switches back. Clear them all.
+  document.querySelectorAll("#enquiry-form .field-error").forEach((error) => {
+    error.hidden = true;
+  });
+  document.querySelectorAll('#enquiry-form [aria-invalid="true"]').forEach((field) => {
+    field.setAttribute("aria-invalid", "false");
+  });
+
+  const copy = MESSAGE_COPY[intent];
+  if (copy) {
+    messageLabel.innerHTML = copy.label;
+    messageField.placeholder = copy.placeholder;
+    messageField.required = copy.required;
+  }
+}
+
+document.querySelectorAll('input[name="intent"]').forEach((radio) => {
+  radio.addEventListener("change", applyIntent);
+});
+applyIntent();
 
 document.querySelectorAll(".enquire-btn").forEach((button) => {
   button.addEventListener("click", () => {
+    const collectionRadio = document.querySelector(
+      `input[name="intent"][value="${COLLECTION}"]`
+    );
+    collectionRadio.checked = true;
+    applyIntent();
     bouquetSelect.value = button.dataset.bouquet;
-    toggleCustomOrderFields();
     scrollToForm();
   });
 });
@@ -82,6 +143,8 @@ document.querySelectorAll(".occasion-tile").forEach((tile) => {
 const form = document.getElementById("enquiry-form");
 const statusEl = form.querySelector(".form-status");
 const successEl = document.getElementById("form-success");
+const submitButton = form.querySelector('[type="submit"]');
+const submitLabel = submitButton.textContent;
 
 function setFieldError(input, show) {
   const error = input.closest(".field").querySelector(".field-error");
@@ -92,11 +155,17 @@ function setFieldError(input, show) {
 function validate() {
   const email = form.elements.email;
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+  const intent = selectedIntent();
   const checks = [
     [form.elements.name, form.elements.name.value.trim() !== ""],
     [email, emailOk],
-    [form.elements.message, form.elements.message.value.trim() !== ""],
   ];
+  if (intent === COLLECTION) {
+    checks.push([form.elements.bouquet, form.elements.bouquet.value !== ""]);
+  }
+  if (intent === CUSTOM) {
+    checks.push([form.elements.message, form.elements.message.value.trim() !== ""]);
+  }
   let valid = true;
   for (const [input, ok] of checks) {
     setFieldError(input, !ok);
@@ -108,6 +177,8 @@ function validate() {
 ["name", "email", "message"].forEach((id) => {
   form.elements[id].addEventListener("input", () => setFieldError(form.elements[id], false));
 });
+
+bouquetSelect.addEventListener("change", () => setFieldError(bouquetSelect, false));
 
 function showStatus(text, isError) {
   statusEl.textContent = text;
@@ -129,7 +200,6 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  const submitButton = form.querySelector('[type="submit"]');
   submitButton.disabled = true;
   submitButton.textContent = "Sending…";
 
@@ -147,6 +217,6 @@ form.addEventListener("submit", async (event) => {
     showStatus(`Something went wrong sending your enquiry — please try again, or email us at ${FALLBACK_EMAIL}.`, true);
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Send Enquiry";
+    submitButton.textContent = submitLabel;
   }
 });

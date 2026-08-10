@@ -724,11 +724,111 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   margin-top: 0.4rem;
 }
 
-.field-hint {
-  color: var(--text);
-  font-size: 0.82rem;
+.intent-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1.8rem;
+}
+
+.intent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.intent-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1.5rem 0.75rem 1.2rem;
+  text-align: center;
+  background: var(--cream-card);
+  border: 1px solid rgba(185, 150, 104, 0.28);
+  border-radius: 999px 999px 10px 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.intent-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 14px 26px -16px rgba(169, 106, 116, 0.5);
+}
+
+/* Rose rather than the gold used on the occasion tiles: these are primary
+   choices, and gold-on-cream was too low-contrast to register as an icon. */
+.intent-card svg { width: 38px; height: 38px; color: var(--rose-dark); }
+
+.intent-card span {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.intent-card:has(input:checked) {
+  border-color: var(--rose-dark);
+  background: var(--blush-light);
+  box-shadow: 0 14px 26px -18px rgba(169, 106, 116, 0.6);
+}
+
+.intent-card:has(input:focus-visible) {
+  outline: 2px solid var(--rose);
+  outline-offset: 2px;
+}
+
+.path-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.path-fieldset[hidden] { display: none; }
+
+#enquiry-details[hidden] { display: none; }
+
+.field-label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 0.45rem;
+}
+
+.field-group {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1.2rem;
+  min-width: 0;
+}
+
+.field-group > .field-label {
+  padding: 0;
+}
+
+.radio-row { display: flex; gap: 1.6rem; }
+
+.field .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
   font-weight: 300;
-  margin-top: 0.4rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.field .radio-option input {
+  width: auto;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--rose-dark);
 }
 
 .enquiry-form .btn { width: 100%; }
@@ -755,6 +855,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   .enquiry-form, .form-success { padding: 2.8rem 3rem; }
   .form-row { grid-template-columns: 1fr 1fr; }
   .enquiry-form .btn { width: auto; }
+  /* A lone path field (Which piece / Budget range) sits above a two-column row,
+     so match one column's width instead of spanning the full form. */
+  .path-fieldset .field select { max-width: calc(50% - 0.6rem); }
 }
 
 /* ── Footer ───────────────────────────────────────────────────── */

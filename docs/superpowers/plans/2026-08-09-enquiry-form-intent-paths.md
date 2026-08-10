@@ -18,7 +18,8 @@
 - **Progressive enhancement:** markup ships with every fieldset visible. JS hides them on init. With JS disabled the form degrades to one long working form, never to an empty section.
 - **Preview with `python3 -m http.server 8000`** from the repo root, then `http://localhost:8000` (per `README.md`). If port 8000 is occupied by another project, use `8123`.
 - **Do not push to `main` without explicit approval** — this repo auto-deploys to flowersbytavi.co.uk on merge, with no staging environment.
-- **The working tree starts dirty:** `index.html` has an uncommitted change relabelling the submit button from "Send Enquiry / Customise Orders" to "Submit". Task 2 replaces that whole block and already carries `Submit`, so no action is needed — do not revert it, and do not be surprised by `git status` showing `index.html` modified before Task 1.
+- **The submit button already reads "Submit"** (committed in `df90ab7`, before this plan began). Task 2 replaces that whole block and carries `Submit` forward — keep it that way; do not restore the old "Send Enquiry / Customise Orders" label.
+- **Formspree is being replaced entirely in a follow-on phase** (self-hosted backend on Vercel sending via Outlook SMTP). That is out of scope here. Do not remove, rewire, or "tidy up" the Formspree submission code in this plan — the restructure lands first so the backend can be built against the final field names.
 
 ---
 
@@ -667,13 +668,21 @@ Replace with:
   }
 ```
 
-- [ ] **Step 3: Verify the label survives a failed send**
+- [ ] **Step 3: Verify the fix by inspection**
 
-Temporarily set `FORMSPREE_ID` to `"broken"` in `js/main.js`, reload, choose a path, fill Name and a valid Email (plus a piece on the collection path), and Submit.
+Do **not** modify `FORMSPREE_ID` — it is protected by this plan's Global Constraints and by `AGENTS.md`.
 
-Expected: the error notice appears and the button reads **Submit** again — not "Send Enquiry".
+Run: `grep -n 'submitLabel\|submitButton\|Send Enquiry' js/main.js`
 
-**Revert `FORMSPREE_ID` to `"YOUR_FORM_ID"` before committing.** Confirm with `grep -n 'FORMSPREE_ID = ' js/main.js` — it must read `const FORMSPREE_ID = "YOUR_FORM_ID";`.
+Expected:
+- `const submitButton = form.querySelector('[type="submit"]');` and `const submitLabel = submitButton.textContent;` each appear exactly once, at module scope.
+- No second `const submitButton` declaration inside the submit handler.
+- `submitButton.textContent = submitLabel;` appears in the `finally` block.
+- The string `"Send Enquiry"` no longer appears anywhere in the file.
+
+Also confirm the constant is untouched: `grep -n 'FORMSPREE_ID = ' js/main.js` must read `const FORMSPREE_ID = "YOUR_FORM_ID";`.
+
+The failed-send path cannot be exercised while the form is unconnected — the handler returns early on the "not connected yet" branch before reaching the `try`/`finally`. It gets exercised end-to-end in the follow-on backend phase, where pointing the API URL at a stopped local server produces a real failure with no production config involved.
 
 - [ ] **Step 4: Commit**
 
