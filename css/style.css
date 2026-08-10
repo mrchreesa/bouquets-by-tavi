@@ -756,7 +756,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   box-shadow: 0 14px 26px -16px rgba(169, 106, 116, 0.5);
 }
 
-.intent-card svg { width: 30px; height: 30px; color: var(--gold); }
+/* Rose rather than the gold used on the occasion tiles: these are primary
+   choices, and gold-on-cream was too low-contrast to register as an icon. */
+.intent-card svg { width: 38px; height: 38px; color: var(--rose-dark); }
 
 .intent-card span {
   font-size: 0.72rem;
@@ -853,6 +855,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   .enquiry-form, .form-success { padding: 2.8rem 3rem; }
   .form-row { grid-template-columns: 1fr 1fr; }
   .enquiry-form .btn { width: auto; }
+  /* A lone path field (Which piece / Budget range) sits above a two-column row,
+     so match one column's width instead of spanning the full form. */
+  .path-fieldset .field select { max-width: calc(50% - 0.6rem); }
 }
 
 /* ── Footer ───────────────────────────────────────────────────── */
