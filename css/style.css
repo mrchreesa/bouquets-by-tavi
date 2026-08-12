@@ -376,14 +376,13 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 .hero-cta-menu a + a { border-top: 1px solid rgba(185, 150, 104, 0.2); }
 
 .hero-image {
-  max-width: 420px;
+  max-width: 480px;
   margin: 0 auto;
   width: 100%;
 }
 
 .hero-image img {
-  border-radius: 260px 260px 6px 6px;
-  box-shadow: 0 24px 48px -24px rgba(169, 106, 116, 0.45);
+  filter: drop-shadow(0 22px 30px rgba(169, 106, 116, 0.4));
 }
 
 @media (min-width: 820px) {
