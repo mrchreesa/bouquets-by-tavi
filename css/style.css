@@ -287,18 +287,40 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 
 .hero {
   position: relative;
+  isolation: isolate;
   background: linear-gradient(180deg, var(--blush-light), var(--blush));
   padding: 3.5rem 1.25rem 4rem;
 }
 
 .hero-decor {
   position: absolute;
-  inset: 0;
   z-index: -1;
+  pointer-events: none;
+}
+
+.hero-decor-fx {
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  pointer-events: none;
+}
+
+.hero-decor-corner {
+  width: 150px;
+  height: auto;
+  opacity: 0.9;
+}
+
+.hero-decor-tl { top: -16px; left: -12px; }
+
+.hero-decor-br {
+  bottom: -16px;
+  right: -12px;
+  width: 190px;
+}
+
+@media (max-width: 819px) {
+  .hero-decor-corner { display: none; }
 }
 
 .hero-inner {
