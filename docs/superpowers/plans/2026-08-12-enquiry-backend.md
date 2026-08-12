@@ -108,13 +108,23 @@ ALLOWED_ORIGINS=https://flowersbytavi.co.uk,https://www.flowersbytavi.co.uk,http
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "nodemailer": "^6.9.16"
+    "nodemailer": "^9.0.5"
   },
   "engines": {
     "node": ">=20.0.0"
   }
 }
 ```
+
+**Why nodemailer 9 and not the 6.x that Fresh & Clean uses:** `nodemailer@6` carries
+eight advisories, two of which land on this exact design. `addressparser` is
+vulnerable to a recursive-call DoS (high, affects `<=7.0.10`) and this API passes a
+visitor-supplied email address straight to `replyTo`, so an attacker controls the
+input that parser sees. A separate advisory (`<7.0.7`) can deliver mail to an
+unintended domain. Do not copy the version from the sibling project.
+
+The API surface used here — `createTransport({ service, auth })` and
+`sendMail({ from, to, replyTo, subject, text })` — is unchanged in 9.x.
 
 - [ ] **Step 5: Write `vercel.json`**
 
