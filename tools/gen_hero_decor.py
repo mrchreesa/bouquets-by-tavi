@@ -8,9 +8,6 @@ import sys
 
 W, H = 1100, 640
 
-def n(v):
-    return f"{round(v, 1):g}"
-
 def build():
     L = []
     A = L.append

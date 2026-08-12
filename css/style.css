@@ -288,6 +288,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 .hero {
   position: relative;
   isolation: isolate;
+  overflow-x: hidden;
   background: linear-gradient(180deg, var(--blush-light), var(--blush));
   padding: 3.5rem 1.25rem 4rem;
 }
