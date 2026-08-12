@@ -19,6 +19,10 @@
 - **Payload cap:** 16 KB. Field caps: `name` 100, `email` 254, `message` 5000, everything else 100 characters.
 - **Strip CR and LF** from any value that reaches an email header (the subject line). This is a real bug in the Fresh & Clean original.
 - **The site repo is PUBLIC and auto-deploys to flowersbytavi.co.uk on push to `main`.** Treat any push as instantly live. Do not push without explicit approval.
+- **Run the API's tests with bare `node --test`**, from the API repo root. Do NOT pass a
+  directory (`node --test test/`): on Node 22 that is interpreted as a module path, not
+  a directory to scan, and fails with `Cannot find module '.../test'` no matter how
+  healthy the code is. Bare `node --test` auto-discovers `test/**`.
 - **Local preview** of the site: `python3 -m http.server 8123` from the site repo root. Never port 8000 — another project owns it. This environment's browser has served STALE `js/main.js` through normal cache-bypass methods; always navigate with a cache-busted URL (`?cb=<timestamp>`) and confirm current code is running before trusting a result.
 
 ## Human prerequisites
@@ -295,7 +299,7 @@ test("stripHeader tolerates non-strings", () => {
 - [ ] **Step 2: Run the tests to confirm they fail**
 
 ```bash
-node --test test/
+node --test
 ```
 Expected: FAIL — `Cannot find module '../lib/validate'`.
 
@@ -365,7 +369,7 @@ module.exports = { validateEnquiry, stripHeader, COLLECTION, CUSTOM, LIMITS };
 - [ ] **Step 4: Run the tests to confirm they pass**
 
 ```bash
-node --test test/
+node --test
 ```
 Expected: PASS, 12 tests.
 
@@ -466,7 +470,7 @@ test("fails open when redis throws", async () => {
 - [ ] **Step 2: Run the tests to confirm they fail**
 
 ```bash
-node --test test/
+node --test
 ```
 Expected: FAIL — `Cannot find module '../lib/rate-limit'`.
 
@@ -520,7 +524,7 @@ module.exports = { checkRateLimit, HOURLY_MAX, DAILY_MAX };
 - [ ] **Step 4: Run the tests to confirm they pass**
 
 ```bash
-node --test test/
+node --test
 ```
 Expected: PASS, 18 tests total (12 from Task 2 plus 6 here).
 
@@ -607,7 +611,7 @@ test("sendEnquiry propagates transport failure", async () => {
 - [ ] **Step 2: Run the tests to confirm they fail**
 
 ```bash
-node --test test/
+node --test
 ```
 Expected: FAIL — `Cannot find module '../lib/mailer'`.
 
@@ -660,7 +664,7 @@ module.exports = { buildMessage, sendEnquiry };
 - [ ] **Step 4: Run the tests to confirm they pass**
 
 ```bash
-node --test test/
+node --test
 ```
 Expected: PASS, 24 tests total.
 
@@ -722,7 +726,7 @@ test("fails CLOSED when the verification call throws", async () => {
 - [ ] **Step 2: Run to confirm failure**
 
 ```bash
-node --test test/
+node --test
 ```
 Expected: FAIL — `Cannot find module '../lib/turnstile'`.
 
@@ -754,7 +758,7 @@ module.exports = { verifyTurnstile };
 - [ ] **Step 4: Run to confirm the Turnstile tests pass**
 
 ```bash
-node --test test/
+node --test
 ```
 Expected: PASS, 28 tests total.
 
