@@ -288,7 +288,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 .hero {
   position: relative;
   isolation: isolate;
-  overflow-x: hidden;
   background: linear-gradient(180deg, var(--blush-light), var(--blush));
   padding: 3.5rem 1.25rem 4rem;
 }
@@ -312,11 +311,11 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   opacity: 0.9;
 }
 
-.hero-decor-tl { top: -16px; left: -12px; }
+.hero-decor-tl { top: -16px; left: 0; }
 
 .hero-decor-br {
   bottom: -16px;
-  right: -12px;
+  right: 0;
   width: 190px;
 }
 
