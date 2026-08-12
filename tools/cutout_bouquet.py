@@ -22,6 +22,7 @@ OUT_WIDTH = 1000
 NEAR_BLACK = 12   # per-pixel max(R,G,B) at or below this is background-candidate
 GROW_PX = 2        # dilate the background mask inward by this many pixels
 FEATHER_SIGMA = 1.0  # gaussian blur applied to the alpha channel
+MAX_ENCLOSED_HOLE_PX = 400  # small enclosed near-black pockets to absorb into bg
 
 def main():
     img = Image.open(SRC).convert("RGB")
@@ -32,7 +33,13 @@ def main():
     border_labels = (set(labels[0, :]) | set(labels[-1, :])
                       | set(labels[:, 0]) | set(labels[:, -1]))
     border_labels.discard(0)
-    bg = np.isin(labels, list(border_labels))
+
+    # Also absorb small enclosed near-black components
+    sizes = ndimage.sum(near_black, labels, index=np.arange(1, labels.max() + 1))
+    enclosed_labels = [i + 1 for i, sz in enumerate(sizes)
+                        if sz <= MAX_ENCLOSED_HOLE_PX and (i + 1) not in border_labels]
+    bg_labels = set(border_labels) | set(enclosed_labels)
+    bg = np.isin(labels, list(bg_labels))
 
     bg_grown = ndimage.binary_dilation(bg, iterations=GROW_PX)
     alpha = np.where(bg_grown, 0, 255).astype(np.float32)
