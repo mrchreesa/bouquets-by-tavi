@@ -813,12 +813,29 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
+// The rate limiter is only as good as this function. `x-forwarded-for` is
+// client-settable: if we trusted its LEFTMOST entry, an attacker could send a
+// different fake value on every request, land in a different rate-limit bucket
+// each time, and bypass the limiter completely — making all of lib/rate-limit.js
+// decorative. Prefer the headers Vercel sets itself, which a client cannot forge;
+// fall back to the RIGHTMOST x-forwarded-for entry, which is the one appended by
+// the nearest proxy rather than anything the client supplied.
 function clientIp(req) {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.length) {
-    return forwarded.split(",")[0].trim();
+  const trusted = req.headers["x-vercel-forwarded-for"] || req.headers["x-real-ip"];
+  if (typeof trusted === "string" && trusted.trim()) {
+    return trusted.trim().toLowerCase();
   }
-  return req.socket?.remoteAddress || "unknown";
+
+  const forwarded = req.headers["x-forwarded-for"];
+  if (typeof forwarded === "string" && forwarded.trim()) {
+    const parts = forwarded.split(",").map((p) => p.trim()).filter(Boolean);
+    if (parts.length) return parts[parts.length - 1].toLowerCase();
+  }
+
+  // Normalising case and whitespace matters: the same real client arriving as
+  // "1.2.3.4 " and "1.2.3.4" would otherwise occupy two separate buckets and get
+  // double the allowance.
+  return (req.socket?.remoteAddress || "unknown").toLowerCase();
 }
 
 app.get("/api/health", (req, res) => {
