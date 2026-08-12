@@ -22,7 +22,6 @@ OUT_WIDTH = 1000
 NEAR_BLACK = 12   # per-pixel max(R,G,B) at or below this is background-candidate
 GROW_PX = 2        # dilate the background mask inward by this many pixels
 FEATHER_SIGMA = 1.0  # gaussian blur applied to the alpha channel
-MAX_ENCLOSED_HOLE_PX = 400  # small enclosed near-black pockets to absorb into bg
 
 def main():
     img = Image.open(SRC).convert("RGB")
@@ -33,13 +32,23 @@ def main():
     border_labels = (set(labels[0, :]) | set(labels[-1, :])
                       | set(labels[:, 0]) | set(labels[:, -1]))
     border_labels.discard(0)
+    bg = np.isin(labels, list(border_labels))
 
-    # Also absorb small enclosed near-black components
-    sizes = ndimage.sum(near_black, labels, index=np.arange(1, labels.max() + 1))
-    enclosed_labels = [i + 1 for i, sz in enumerate(sizes)
-                        if sz <= MAX_ENCLOSED_HOLE_PX and (i + 1) not in border_labels]
-    bg_labels = set(border_labels) | set(enclosed_labels)
-    bg = np.isin(labels, list(bg_labels))
+    # Known small background pockets fully enclosed by leaf/foliage silhouettes,
+    # identified by pixel-level review of this specific photo. The border
+    # flood-fill above can't reach these (no path to the image border through
+    # the gaps). Listed explicitly rather than inferred by a generic size
+    # heuristic — a generic "absorb any small enclosed near-black blob" rule
+    # also erodes legitimate deep shadow elsewhere (paper-wrap fold crease,
+    # petal shadow, leaf-in-shadow) that happens to be small and near-black too.
+    # Coordinates scaled from output (1000x841) space to original (1368x1150).
+    KNOWN_ENCLOSED_POCKETS = [
+        (186, 209, 436, 465), (182, 191, 447, 473), (187, 211, 405, 414),
+        (312, 326, 1245, 1261), (309, 315, 1309, 1331), (297, 305, 1322, 1333),
+        (311, 319, 1261, 1279), (346, 360, 1213, 1226),
+    ]
+    for y0, y1, x0, x1 in KNOWN_ENCLOSED_POCKETS:
+        bg[y0:y1, x0:x1] |= near_black[y0:y1, x0:x1]
 
     bg_grown = ndimage.binary_dilation(bg, iterations=GROW_PX)
     alpha = np.where(bg_grown, 0, 255).astype(np.float32)
