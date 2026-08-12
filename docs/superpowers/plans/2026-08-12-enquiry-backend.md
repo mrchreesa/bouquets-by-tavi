@@ -760,7 +760,12 @@ module.exports = { verifyTurnstile };
 ```bash
 node --test
 ```
-Expected: PASS, 28 tests total.
+Expected: PASS, 33 tests total (29 already present, plus the 4 here).
+
+Note: this figure includes tests added by fix rounds in tasks 2-4, so it is higher
+than a naive sum of the counts written into those tasks. If you see fewer than 29
+before adding yours, an earlier test file has been lost — stop and report it rather
+than continuing.
 
 - [ ] **Step 5: Write the server**
 
