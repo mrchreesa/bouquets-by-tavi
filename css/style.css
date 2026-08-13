@@ -287,8 +287,50 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 
 .hero {
   position: relative;
+  isolation: isolate;
   background: linear-gradient(180deg, var(--blush-light), var(--blush));
   padding: 3.5rem 1.25rem 4rem;
+}
+
+.hero-decor {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-decor-fx {
+  inset: 0;
+  object-fit: cover;
+}
+
+.hero-decor-corner {
+  width: 150px;
+  opacity: 0.9;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Regenerate with:
+   python3 tools/cutout_lineart.py images/bg-item1.png images/hero-corner-tl.webp 300
+   python3 tools/cutout_lineart.py images/bg-item2.png images/hero-corner-br.webp 380
+   (cutout_lineart.py now saves WebP directly, no separate conversion step) */
+.hero-decor-tl {
+  top: -16px;
+  left: 0;
+  height: 225px;
+  background-image: url(../images/hero-corner-tl.webp);
+}
+
+.hero-decor-br {
+  bottom: -16px;
+  right: 0;
+  width: 190px;
+  height: 285px;
+  background-image: url(../images/hero-corner-br.webp);
+}
+
+@media (max-width: 819px) {
+  .hero-decor-corner { display: none; }
 }
 
 .hero-inner {
@@ -376,22 +418,22 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
 .hero-cta-menu a + a { border-top: 1px solid rgba(185, 150, 104, 0.2); }
 
 .hero-image {
-  max-width: 420px;
+  max-width: 480px;
   margin: 0 auto;
   width: 100%;
 }
 
 .hero-image img {
-  border-radius: 260px 260px 6px 6px;
-  box-shadow: 0 24px 48px -24px rgba(169, 106, 116, 0.45);
+  filter: drop-shadow(0 22px 30px rgba(169, 106, 116, 0.4));
 }
 
 @media (min-width: 820px) {
   .hero { padding: 5rem 1.25rem 5.5rem; }
-  .hero-inner { grid-template-columns: 1.05fr 1fr; }
+  .hero-inner { grid-template-columns: 0.85fr 1.2fr; }
   .hero-text { text-align: left; }
   .hero-tagline { margin-left: 0; }
   .hero-location { margin-left: 0; }
+  .hero-image { max-width: 610px; }
 }
 
 /* ── Bouquets ─────────────────────────────────────────────────── */

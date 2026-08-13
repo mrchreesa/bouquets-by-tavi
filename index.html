@@ -43,6 +43,11 @@
   <main>
 
     <section class="hero">
+      <!-- Corner ornaments: background-image, sized via CSS. Regenerate instructions live in css/style.css above .hero-decor-tl / .hero-decor-br. -->
+      <div class="hero-decor hero-decor-corner hero-decor-tl" aria-hidden="true"></div>
+      <div class="hero-decor hero-decor-corner hero-decor-br" aria-hidden="true"></div>
+      <!-- Regenerate with: python3 tools/gen_hero_decor.py images/hero-decor.svg -->
+      <img class="hero-decor hero-decor-fx" src="images/hero-decor.svg" alt="" aria-hidden="true">
       <div class="hero-inner">
         <div class="hero-text">
           <h1>The Art of <span class="script">Gifting Flowers</span></h1>
@@ -57,8 +62,8 @@
           </details>
         </div>
         <div class="hero-image">
-          <!-- Animated bouquet mark. Regenerate with: python3 tools/gen_hero_bouquet.py images/hero-bouquet.svg -->
-          <img src="images/hero-bouquet.svg" alt="An illustrated bouquet of roses and peonies wrapped in paper, tied with a gold ribbon bearing the Tavi monogram" width="560" height="640">
+          <!-- Real bouquet photo, background removed. Regenerate with: python3 tools/cutout_bouquet.py -->
+          <img src="images/bouquet-cutout.webp" alt="A handcrafted bouquet of blush and white roses and peonies wrapped in blush paper, tied with a satin ribbon" width="1000" height="841">
         </div>
       </div>
       <div class="scallop scallop-bottom" aria-hidden="true"></div>
@@ -249,8 +254,8 @@
     <section id="story" class="section story">
       <div class="story-inner">
         <div class="story-image">
-          <!-- Generated illustration. Regenerate with: python3 tools/gen_story_bouquet.py images/story.svg -->
-          <img src="images/story.svg" alt="A delicate gold line-art bouquet resting in front of a softly glowing heart, in blush pink and gold tones" width="480" height="560">
+          <!-- Animated bouquet mark, moved here from the hero. Regenerate with: python3 tools/gen_hero_bouquet.py images/hero-bouquet.svg -->
+          <img src="images/hero-bouquet.svg" alt="An animated illustrated bouquet of roses and peonies wrapped in paper, tied with a gold ribbon bearing the Tavi monogram" width="560" height="640">
         </div>
         <div class="story-text">
           <p class="kicker">Our Story</p>
