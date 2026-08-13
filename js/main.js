@@ -1,7 +1,9 @@
 // ── Configuration ────────────────────────────────────────────────
-// Create a free form at https://formspree.io and paste its ID here.
-const FORMSPREE_ID = "YOUR_FORM_ID";
 const FALLBACK_EMAIL = "flowersbytavi@outlook.com";
+const API_URL =
+  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://localhost:3001/submit-form"
+    : "https://flowers-by-tavi-api.vercel.app/submit-form";
 
 // ── Mobile navigation ────────────────────────────────────────────
 const navToggle = document.querySelector(".nav-toggle");
@@ -195,28 +197,53 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  if (FORMSPREE_ID === "YOUR_FORM_ID") {
-    showStatus(`The enquiry form isn't connected yet — please email us at ${FALLBACK_EMAIL}.`, true);
+  const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value || "";
+  if (!turnstileToken) {
+    showStatus("Please complete the verification check above, then try again.", true);
     return;
   }
 
   submitButton.disabled = true;
   submitButton.textContent = "Sending…";
 
+  const payload = Object.fromEntries(new FormData(form));
+  payload.turnstileToken = turnstileToken;
+
   try {
-    const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+    const response = await fetch(API_URL, {
       method: "POST",
-      body: new FormData(form),
-      headers: { Accept: "application/json" },
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload),
     });
-    if (!response.ok) throw new Error(`Formspree responded ${response.status}`);
-    form.hidden = true;
-    successEl.hidden = false;
-    successEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    const data = await response.json().catch(() => ({}));
+
+    if (response.ok && data.success) {
+      form.hidden = true;
+      successEl.hidden = false;
+      successEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    // Distinct messages: "try again later" and "we couldn't verify you" call for
+    // different actions from the visitor than a generic failure does.
+    if (response.status === 429 || response.status === 403) {
+      showStatus(data.error || "Please try again in a little while.", true);
+    } else if (response.status === 400 && Array.isArray(data.fields)) {
+      data.fields.forEach((id) => {
+        if (form.elements[id]) setFieldError(form.elements[id], true);
+      });
+      showStatus(data.error || "Please check your details.", true);
+    } else {
+      throw new Error(`API responded ${response.status}`);
+    }
   } catch {
-    showStatus(`Something went wrong sending your enquiry — please try again, or email us at ${FALLBACK_EMAIL}.`, true);
+    showStatus(
+      `Something went wrong sending your enquiry — please try again, or email us at ${FALLBACK_EMAIL}.`,
+      true
+    );
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = submitLabel;
+    if (window.turnstile) window.turnstile.reset();
   }
 });
