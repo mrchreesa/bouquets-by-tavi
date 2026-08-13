@@ -12,20 +12,19 @@ python3 -m http.server 8000
 
 Then open <http://localhost:8000>. (Opening `index.html` directly in a browser also works.)
 
-## Connect the enquiry form (one-time setup)
+## How the enquiry form delivers
 
-Enquiries are delivered by [Formspree](https://formspree.io) — free, no backend needed.
+Enquiries are handled by our own API, not a third-party form service. The
+server lives in the private `flowers-by-tavi-api` repo and runs on Vercel;
+this site posts JSON to it. It screens each submission with a honeypot,
+Cloudflare Turnstile, per-IP rate limiting and server-side validation, then
+emails the enquiry to flowersbytavi@outlook.com with Reply-To set to the
+customer.
 
-1. Create a free Formspree account and click **New form**.
-2. Set the form's email to the address that should receive enquiries.
-3. Copy the form's ID (the part after `/f/` in its endpoint, e.g. `mzbqwxyz`).
-4. Open `js/main.js` and replace `YOUR_FORM_ID` on the first line of code:
+To change where enquiries are delivered, update `MAIL_TO` in the API
+project's Vercel environment variables — no code change needed here.
 
-   ```js
-   const FORMSPREE_ID = "mzbqwxyz";
-   ```
-
-Until this is done, the form shows visitors a friendly "form not connected yet" message with the fallback email instead of sending.
+If the API host ever changes, update `API_URL` at the top of `js/main.js`.
 
 ## Replace or add product photos
 

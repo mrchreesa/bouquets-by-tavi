@@ -851,6 +851,18 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--in
   padding: 0;
 }
 
+/* Hidden from people, visible to naive bots. Not display:none — some bots skip
+   those. Kept out of the tab order and the accessibility tree instead. */
+.honeypot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.cf-turnstile { margin: 0 0 1.2rem; }
+
 .radio-row { display: flex; gap: 1.6rem; }
 
 .field .radio-option {
