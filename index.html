@@ -43,8 +43,10 @@
   <main>
 
     <section class="hero">
-      <img class="hero-decor hero-decor-corner hero-decor-tl" src="images/hero-corner-tl.png" alt="" aria-hidden="true">
-      <img class="hero-decor hero-decor-corner hero-decor-br" src="images/hero-corner-br.png" alt="" aria-hidden="true">
+      <!-- Corner ornaments: background-image, sized via CSS. Regenerate instructions live in css/style.css above .hero-decor-tl / .hero-decor-br. -->
+      <div class="hero-decor hero-decor-corner hero-decor-tl" aria-hidden="true"></div>
+      <div class="hero-decor hero-decor-corner hero-decor-br" aria-hidden="true"></div>
+      <!-- Regenerate with: python3 tools/gen_hero_decor.py images/hero-decor.svg -->
       <img class="hero-decor hero-decor-fx" src="images/hero-decor.svg" alt="" aria-hidden="true">
       <div class="hero-inner">
         <div class="hero-text">
@@ -61,7 +63,7 @@
         </div>
         <div class="hero-image">
           <!-- Real bouquet photo, background removed. Regenerate with: python3 tools/cutout_bouquet.py -->
-          <img src="images/bouquet-cutout.png" alt="A handcrafted bouquet of blush and white roses and peonies wrapped in blush paper, tied with a satin ribbon" width="1000" height="841">
+          <img src="images/bouquet-cutout.webp" alt="A handcrafted bouquet of blush and white roses and peonies wrapped in blush paper, tied with a satin ribbon" width="1000" height="841">
         </div>
       </div>
       <div class="scallop scallop-bottom" aria-hidden="true"></div>

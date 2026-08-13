@@ -16,7 +16,7 @@ import numpy as np
 import sys
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else "images/bouquet.png"
-OUT = sys.argv[2] if len(sys.argv) > 2 else "images/bouquet-cutout.png"
+OUT = sys.argv[2] if len(sys.argv) > 2 else "images/bouquet-cutout.webp"
 OUT_WIDTH = 1000
 
 NEAR_BLACK = 12   # per-pixel max(R,G,B) at or below this is background-candidate
@@ -25,6 +25,8 @@ FEATHER_SIGMA = 1.0  # gaussian blur applied to the alpha channel
 
 def main():
     img = Image.open(SRC).convert("RGB")
+    assert img.size == (1368, 1150), \
+        "KNOWN_ENCLOSED_POCKETS is calibrated for the original 1368x1150 bouquet.png — re-derive it before using a different source image"
     arr = np.asarray(img).astype(np.uint8)
 
     near_black = arr.max(axis=2) <= NEAR_BLACK
@@ -60,7 +62,7 @@ def main():
     w, h = rgba.size
     new_h = round(h * OUT_WIDTH / w)
     rgba = rgba.resize((OUT_WIDTH, new_h), Image.LANCZOS)
-    rgba.save(OUT, optimize=True)
+    rgba.save(OUT, format="WEBP", quality=80)
 
     a = np.asarray(rgba)[:, :, 3]
     print(f"{OUT}: {rgba.size[0]}x{rgba.size[1]}, "

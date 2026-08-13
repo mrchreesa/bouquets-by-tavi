@@ -31,7 +31,7 @@ def main():
     w, h = rgba.size
     new_h = round(h * OUT_WIDTH / w)
     rgba = rgba.resize((OUT_WIDTH, new_h), Image.LANCZOS)
-    rgba.save(OUT, optimize=True)
+    rgba.save(OUT, format="WEBP", quality=80)
 
     a = np.asarray(rgba)[:, :, 3]
     print(f"{OUT}: {rgba.size[0]}x{rgba.size[1]}, "

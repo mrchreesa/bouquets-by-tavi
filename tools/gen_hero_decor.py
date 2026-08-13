@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the hero section's ambient decorative layer: sparkle dust and a
 single drifting petal. The gold line-art corner florals are separate
-generated-image assets (images/hero-corner-tl.png / hero-corner-br.png,
+generated-image assets (images/hero-corner-tl.webp / hero-corner-br.webp,
 produced by tools/cutout_lineart.py) — this script only draws the small
 ambient touches that float across the whole hero: sparkles and one petal."""
 import sys
@@ -12,7 +12,7 @@ def build():
     L = []
     A = L.append
     A(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" '
-      f'height="{H}" role="img" aria-hidden="true" focusable="false">'
+      f'height="{H}" role="img" focusable="false">'
       f'<defs><linearGradient id="goldL" x1="0" y1="0" x2="1" y2="1">'
       f'<stop offset="0" stop-color="#8A6A35"/><stop offset=".5" stop-color="#E7C88C"/>'
       f'<stop offset="1" stop-color="#8A6A35"/></linearGradient></defs>')
