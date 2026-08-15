@@ -16,7 +16,7 @@
 
   <div class="announcement">
     <div class="announcement-inner">
-      <span class="promo-badge">10% off until Monday</span>
+      <span class="promo-badge">10% off on 1st orders</span>
       Handcrafted bouquets &middot; Local delivery from &pound;5
     </div>
   </div>
@@ -74,6 +74,36 @@
       <p class="kicker">Handpicked with love</p>
       <h2>Our Collection</h2>
       <ul class="bouquet-grid">
+        <li class="bouquet-card">
+          <div class="card-media card-carousel" data-carousel>
+            <div class="carousel-track">
+              <img src="images/5.webp" alt="Signature Rose Bouquet — a full bouquet of blush and burgundy roses in pink wrap" class="is-active" width="620" height="800" loading="lazy">
+              <img src="images/5.1.webp" alt="Signature Rose Bouquet — red roses in black wrap with a personalised initial and ribbon message" width="645" height="800" loading="lazy">
+            </div>
+            <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous photo">&#8249;</button>
+            <button type="button" class="carousel-arrow carousel-next" aria-label="Next photo">&#8250;</button>
+            <div class="carousel-dots">
+              <button type="button" class="carousel-dot is-active" aria-label="Show photo 1"></button>
+              <button type="button" class="carousel-dot" aria-label="Show photo 2"></button>
+            </div>
+          </div>
+          <h3>Signature Rose Bouquet</h3>
+          <p class="price">From &pound;75</p>
+          <p class="card-desc">A full, luxury bouquet designed to make a bold statement. Featuring premium roses, elegant wrapping, and a clean, high-end finish — perfect for birthdays, anniversaries, and special occasions. Wrapping paper is selected at our discretion to best match the bouquet style.</p>
+          <p class="card-subhead">Available sizes</p>
+          <ul class="card-list card-list-options">
+            <li>25 Stems — &pound;75</li>
+            <li>35 Stems — &pound;95</li>
+            <li>50 Stems — &pound;125</li>
+            <li>75 Stems — &pound;170</li>
+          </ul>
+          <p class="card-subhead">Optional add-ons</p>
+          <ul class="card-list card-list-options">
+            <li>Initials (letters on bouquet) +&pound;5</li>
+            <li>Personalised ribbon message +&pound;5</li>
+          </ul>
+          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Signature Rose Bouquet">Enquire</button>
+        </li>
         <li class="bouquet-card">
           <div class="card-media">
             <img src="images/1.webp" alt="Blush Basket — a floral basket in blush pink and white tones" width="800" height="800" loading="lazy">
@@ -187,36 +217,6 @@
           </ul>
           <p class="card-note">Note: Design and rose placement may vary slightly depending on size and colour selection.</p>
           <button type="button" class="btn btn-outline enquire-btn" data-bouquet="3D Heart Rose Box">Enquire</button>
-        </li>
-        <li class="bouquet-card">
-          <div class="card-media card-carousel" data-carousel>
-            <div class="carousel-track">
-              <img src="images/5.webp" alt="Signature Rose Bouquet — a full bouquet of blush and burgundy roses in pink wrap" class="is-active" width="620" height="800" loading="lazy">
-              <img src="images/5.1.webp" alt="Signature Rose Bouquet — red roses in black wrap with a personalised initial and ribbon message" width="645" height="800" loading="lazy">
-            </div>
-            <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous photo">&#8249;</button>
-            <button type="button" class="carousel-arrow carousel-next" aria-label="Next photo">&#8250;</button>
-            <div class="carousel-dots">
-              <button type="button" class="carousel-dot is-active" aria-label="Show photo 1"></button>
-              <button type="button" class="carousel-dot" aria-label="Show photo 2"></button>
-            </div>
-          </div>
-          <h3>Signature Rose Bouquet</h3>
-          <p class="price">From &pound;75</p>
-          <p class="card-desc">A full, luxury bouquet designed to make a bold statement. Featuring premium roses, elegant wrapping, and a clean, high-end finish — perfect for birthdays, anniversaries, and special occasions. Wrapping paper is selected at our discretion to best match the bouquet style.</p>
-          <p class="card-subhead">Available sizes</p>
-          <ul class="card-list card-list-options">
-            <li>25 Stems — &pound;75</li>
-            <li>35 Stems — &pound;95</li>
-            <li>50 Stems — &pound;125</li>
-            <li>75 Stems — &pound;170</li>
-          </ul>
-          <p class="card-subhead">Optional add-ons</p>
-          <ul class="card-list card-list-options">
-            <li>Initials (letters on bouquet) +&pound;5</li>
-            <li>Personalised ribbon message +&pound;5</li>
-          </ul>
-          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Signature Rose Bouquet">Enquire</button>
         </li>
       </ul>
     </section>
@@ -403,6 +403,10 @@
               <input type="email" id="email" name="email" required autocomplete="email">
               <p class="field-error" hidden>Please enter a valid email address.</p>
             </div>
+          </div>
+          <div class="field">
+            <label for="phone">Telephone number <span class="optional">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
           </div>
           <div class="field">
             <label for="message">Anything else <span class="optional">(optional)</span></label>
