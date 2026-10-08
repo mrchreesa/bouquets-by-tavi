@@ -43,7 +43,7 @@
 
   <main>
 
-    <section class="hero">
+    <section class="hero" data-analytics-section="hero">
       <!-- Corner ornaments: background-image, sized via CSS. Regenerate instructions live in css/style.css above .hero-decor-tl / .hero-decor-br. -->
       <div class="hero-decor hero-decor-corner hero-decor-tl" aria-hidden="true"></div>
       <div class="hero-decor hero-decor-corner hero-decor-br" aria-hidden="true"></div>
@@ -70,7 +70,7 @@
       <div class="scallop scallop-bottom" aria-hidden="true"></div>
     </section>
 
-    <section id="bouquets" class="section bouquets">
+    <section data-analytics-section="bouquets" id="bouquets" class="section bouquets">
       <p class="kicker">Handpicked with love</p>
       <h2>Our Collection</h2>
       <ul class="bouquet-grid">
@@ -102,7 +102,7 @@
             <li>Initials (letters on bouquet) +&pound;5</li>
             <li>Personalised ribbon message +&pound;5</li>
           </ul>
-          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Signature Rose Bouquet">Enquire</button>
+          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Signature Rose Bouquet" data-analytics-id="enquire-signature-rose-bouquet">Enquire</button>
         </li>
         <li class="bouquet-card">
           <div class="card-media">
@@ -122,7 +122,7 @@
             <li>Premium (fuller) — &pound;70</li>
           </ul>
           <p class="card-note">Note: Flower types may vary slightly depending on availability while maintaining the overall look and colour theme.</p>
-          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Blush Basket">Enquire</button>
+          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Blush Basket" data-analytics-id="enquire-blush-basket">Enquire</button>
         </li>
         <li class="bouquet-card">
           <div class="card-media">
@@ -141,7 +141,7 @@
           </ul>
           <p class="card-note">Personalised makeup products are available &mdash; send us an enquiry and we&rsquo;ll arrange the details with you.</p>
           <p class="card-note">Note: Images may include add-ons for display purposes. Final design may vary depending on selected extras.</p>
-          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Princess Treatment Basket">Enquire</button>
+          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Princess Treatment Basket" data-analytics-id="enquire-princess-treatment-basket">Enquire</button>
         </li>
         <li class="bouquet-card">
           <div class="card-media">
@@ -157,7 +157,7 @@
             <li>Personalisation: initials or message included</li>
           </ul>
           <p class="card-note">Note: Designs may vary slightly depending on shape and colour selection. Add-ons are available — please enquire for more details.</p>
-          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Luxury Chocolate Gift Cake">Enquire</button>
+          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Luxury Chocolate Gift Cake" data-analytics-id="enquire-luxury-chocolate-gift-cake">Enquire</button>
         </li>
         <li class="bouquet-card">
           <div class="card-media card-carousel" data-carousel>
@@ -192,7 +192,7 @@
             <li>Red &amp; White Mix</li>
           </ul>
           <p class="card-note">Note: Design and rose placement may vary slightly depending on size and colour selection.</p>
-          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Luxury Rose Box">Enquire</button>
+          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="Luxury Rose Box" data-analytics-id="enquire-luxury-rose-box">Enquire</button>
         </li>
         <li class="bouquet-card">
           <div class="card-media">
@@ -216,12 +216,12 @@
             <li>Red &amp; White Mix</li>
           </ul>
           <p class="card-note">Note: Design and rose placement may vary slightly depending on size and colour selection.</p>
-          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="3D Heart Rose Box">Enquire</button>
+          <button type="button" class="btn btn-outline enquire-btn" data-bouquet="3D Heart Rose Box" data-analytics-id="enquire-3d-heart-rose-box">Enquire</button>
         </li>
       </ul>
     </section>
 
-    <section id="occasions" class="section occasions">
+    <section data-analytics-section="occasions" id="occasions" class="section occasions">
       <div class="scallop scallop-top" aria-hidden="true"></div>
       <p class="kicker">Whatever the moment</p>
       <h2>Flowers for Every Occasion</h2>
@@ -278,7 +278,7 @@
       <div class="scallop scallop-bottom" aria-hidden="true"></div>
     </section>
 
-    <section id="story" class="section story">
+    <section data-analytics-section="story" id="story" class="section story">
       <div class="story-inner">
         <div class="story-image">
           <!-- Animated bouquet mark, moved here from the hero. Regenerate with: python3 tools/gen_hero_bouquet.py images/hero-bouquet.svg -->
@@ -299,13 +299,13 @@
       </div>
     </section>
 
-    <section id="enquiry" class="section enquiry">
+    <section data-analytics-section="enquiry" id="enquiry" class="section enquiry">
       <div class="scallop scallop-top" aria-hidden="true"></div>
       <p class="kicker">Get in touch</p>
       <h2>What can we help you with?</h2>
       <p class="section-sub">Pick the option that fits and we&rsquo;ll take it from there.</p>
 
-      <form id="enquiry-form" class="enquiry-form" novalidate>
+      <form data-analytics-form="flower_enquiry" id="enquiry-form" class="enquiry-form" novalidate>
         <fieldset class="intent-fieldset">
           <legend class="visually-hidden">What can we help you with?</legend>
           <div class="intent-grid">
@@ -452,5 +452,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+<script defer src="https://webm8-platform.vercel.app/site-analytics.js" data-site="048d8c08-3bf4-48de-8e44-20550c6b77a8" data-paths="/,/index.html,/privacy.html,/terms.html,/delivery.html,/returns.html"></script>
 </body>
 </html>

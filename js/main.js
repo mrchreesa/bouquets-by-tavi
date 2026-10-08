@@ -193,17 +193,21 @@ form.addEventListener("submit", async (event) => {
   statusEl.hidden = true;
 
   if (!validate()) {
+    window.WebM8Analytics?.form("flower_enquiry", "validation_error", { code: "invalid" });
     form.querySelector('[aria-invalid="true"]')?.focus();
     return;
   }
 
   const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value || "";
   if (!turnstileToken) {
+    window.WebM8Analytics?.form("flower_enquiry", "validation_error", { code: "required" });
     showStatus("Please complete the verification check above, then try again.", true);
     return;
   }
 
   submitButton.disabled = true;
+  window.WebM8Analytics?.form("flower_enquiry", "step_complete");
+  window.WebM8Analytics?.form("flower_enquiry", "submit");
   submitButton.textContent = "Sending…";
 
   const payload = Object.fromEntries(new FormData(form));
@@ -218,6 +222,7 @@ form.addEventListener("submit", async (event) => {
     const data = await response.json().catch(() => ({}));
 
     if (response.ok && data.success) {
+      window.WebM8Analytics?.form("flower_enquiry", "success");
       form.hidden = true;
       successEl.hidden = false;
       successEl.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -227,8 +232,10 @@ form.addEventListener("submit", async (event) => {
     // Distinct messages: "try again later" and "we couldn't verify you" call for
     // different actions from the visitor than a generic failure does.
     if (response.status === 429 || response.status === 403) {
+      window.WebM8Analytics?.form("flower_enquiry", "submission_error", { code: "unavailable" });
       showStatus(data.error || "Please try again in a little while.", true);
     } else if (response.status === 400 && Array.isArray(data.fields)) {
+      window.WebM8Analytics?.form("flower_enquiry", "submission_error", { code: "invalid" });
       data.fields.forEach((id) => {
         if (form.elements[id]) setFieldError(form.elements[id], true);
       });
@@ -237,6 +244,7 @@ form.addEventListener("submit", async (event) => {
       throw new Error(`API responded ${response.status}`);
     }
   } catch {
+    window.WebM8Analytics?.form("flower_enquiry", "submission_error", { code: "unknown" });
     showStatus(
       `Something went wrong sending your enquiry — please try again, or email us at ${FALLBACK_EMAIL}.`,
       true
