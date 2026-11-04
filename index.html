@@ -395,22 +395,22 @@
           <div class="form-row">
             <div class="field">
               <label for="name">Name <span aria-hidden="true">*</span></label>
-              <input type="text" id="name" name="name" required autocomplete="name">
+              <input type="text" id="name" name="name" required maxlength="100" autocomplete="name">
               <p class="field-error" hidden>Please tell us your name.</p>
             </div>
             <div class="field">
               <label for="email">Email <span aria-hidden="true">*</span></label>
-              <input type="email" id="email" name="email" required autocomplete="email">
+              <input type="email" id="email" name="email" required maxlength="254" autocomplete="email">
               <p class="field-error" hidden>Please enter a valid email address.</p>
             </div>
           </div>
           <div class="field">
             <label for="phone">Telephone number <span class="optional">(optional)</span></label>
-            <input type="tel" id="phone" name="phone" autocomplete="tel">
+            <input type="tel" id="phone" name="phone" maxlength="50" autocomplete="tel">
           </div>
           <div class="field">
             <label for="message">Anything else <span class="optional">(optional)</span></label>
-            <textarea id="message" name="message" rows="5" placeholder="Size, colours, a note for the card&hellip;"></textarea>
+            <textarea id="message" name="message" rows="5" maxlength="5000" placeholder="Size, colours, a note for the card&hellip;"></textarea>
             <p class="field-error" hidden>Please tell us a little about what you&rsquo;re looking for.</p>
           </div>
           <div class="honeypot-field" aria-hidden="true">

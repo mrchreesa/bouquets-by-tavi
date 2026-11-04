@@ -147,6 +147,7 @@ const statusEl = form.querySelector(".form-status");
 const successEl = document.getElementById("form-success");
 const submitButton = form.querySelector('[type="submit"]');
 const submitLabel = submitButton.textContent;
+let pendingEnquiry = null;
 
 function setFieldError(input, show) {
   const error = input.closest(".field").querySelector(".field-error");
@@ -190,6 +191,7 @@ function showStatus(text, isError) {
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (submitButton.disabled) return;
   statusEl.hidden = true;
 
   if (!validate()) {
@@ -206,18 +208,27 @@ form.addEventListener("submit", async (event) => {
   }
 
   submitButton.disabled = true;
+  form.setAttribute("aria-busy", "true");
   window.WebM8Analytics?.form("flower_enquiry", "step_complete");
   window.WebM8Analytics?.form("flower_enquiry", "submit");
   submitButton.textContent = "Sending…";
 
-  const payload = Object.fromEntries(new FormData(form));
-  payload.turnstileToken = turnstileToken;
-
   try {
+    const payload = Object.fromEntries(new FormData(form));
+    // Keep retry identity in memory only; never store contact details in browser
+    // storage or analytics. A changed answer starts a different enquiry.
+    const answers = JSON.stringify(Object.fromEntries(Object.entries(payload).filter(([key]) => key !== "cf-turnstile-response" && key !== "website")));
+    if (!pendingEnquiry || pendingEnquiry.answers !== answers) {
+      pendingEnquiry = { answers, submissionId: crypto.randomUUID(), submittedAt: new Date().toISOString() };
+    }
+    payload.submissionId = pendingEnquiry.submissionId;
+    payload.submittedAt = pendingEnquiry.submittedAt;
+    payload.turnstileToken = turnstileToken;
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(30000),
     });
     const data = await response.json().catch(() => ({}));
 
@@ -240,6 +251,9 @@ form.addEventListener("submit", async (event) => {
         if (form.elements[id]) setFieldError(form.elements[id], true);
       });
       showStatus(data.error || "Please check your details.", true);
+    } else if (response.status === 503) {
+      window.WebM8Analytics?.form("flower_enquiry", "submission_error", { code: "server" });
+      showStatus("We couldn’t save your enquiry. Your answers are still here—please try again.", true);
     } else {
       throw new Error(`API responded ${response.status}`);
     }
@@ -251,6 +265,7 @@ form.addEventListener("submit", async (event) => {
     );
   } finally {
     submitButton.disabled = false;
+    form.removeAttribute("aria-busy");
     submitButton.textContent = submitLabel;
     if (window.turnstile) window.turnstile.reset();
   }

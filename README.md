@@ -18,8 +18,16 @@ Enquiries are handled by our own API, not a third-party form service. The
 server lives in the private `flowers-by-tavi-api` repo and runs on Vercel;
 this site posts JSON to it. It screens each submission with a honeypot,
 Cloudflare Turnstile, per-IP rate limiting and server-side validation, then
-emails the enquiry to flowersbytavi@outlook.com with Reply-To set to the
-customer.
+saves the full enquiry to the Flowers by Tavi WebM8 lead register before
+emailing the notification to flowersbytavi@outlook.com with Reply-To set to
+the customer. Phone and every enquiry answer are retained. The email includes
+an authenticated Open enquiry link.
+
+Unchanged retries use the same submission ID and time held in page memory;
+changing answers creates a new reference. Storage failures preserve the form
+for retry. Duplicate saves do not send another email. Browser analytics contain
+only the submission event, never the answers or the lead ID. Earlier email-only
+enquiries are not backfilled.
 
 To change where enquiries are delivered, update `MAIL_TO` in the API
 project's Vercel environment variables — no code change needed here.
