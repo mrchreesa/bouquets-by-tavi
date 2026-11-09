@@ -8,25 +8,64 @@ const API_URL =
 // ── Mobile navigation ────────────────────────────────────────────
 const navToggle = document.querySelector(".nav-toggle");
 const navMenu = document.getElementById("nav-menu");
+const nav = navToggle.closest(".nav");
+const heroCta = document.querySelector(".hero-cta");
+
+function closeNav(restoreFocus = false) {
+  navToggle.setAttribute("aria-expanded", "false");
+  navMenu.classList.remove("open");
+  if (restoreFocus) navToggle.focus();
+}
+
+function closeHeroCta(restoreFocus = false) {
+  heroCta.open = false;
+  if (restoreFocus) heroCta.querySelector("summary").focus();
+}
 
 navToggle.addEventListener("click", () => {
   const open = navToggle.getAttribute("aria-expanded") === "true";
+  if (!open) closeHeroCta();
   navToggle.setAttribute("aria-expanded", String(!open));
   navMenu.classList.toggle("open", !open);
 });
 
 navMenu.addEventListener("click", (event) => {
-  if (event.target.closest("a")) {
-    navToggle.setAttribute("aria-expanded", "false");
-    navMenu.classList.remove("open");
+  if (event.target.closest("a")) closeNav();
+});
+
+nav.querySelector(".brand").addEventListener("click", () => closeNav());
+
+// Dismiss these non-modal menus without trapping keyboard focus or page scroll.
+document.addEventListener("pointerdown", (event) => {
+  if (!nav.contains(event.target)) closeNav();
+  if (!heroCta.contains(event.target)) closeHeroCta();
+});
+
+document.addEventListener("focusin", (event) => {
+  if (!nav.contains(event.target)) closeNav();
+  if (!heroCta.contains(event.target)) closeHeroCta();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  if (navToggle.getAttribute("aria-expanded") === "true") {
+    event.preventDefault();
+    closeNav(true);
+  } else if (heroCta.open) {
+    event.preventDefault();
+    closeHeroCta(true);
   }
 });
 
+window.matchMedia("(min-width: 760px)").addEventListener("change", () => closeNav());
+
 // ── Hero CTA dropdown ─────────────────────────────────────────────
+heroCta.addEventListener("toggle", () => {
+  if (heroCta.open) closeNav();
+});
+
 document.querySelectorAll(".hero-cta-menu a").forEach((link) => {
-  link.addEventListener("click", () => {
-    link.closest(".hero-cta").removeAttribute("open");
-  });
+  link.addEventListener("click", () => closeHeroCta());
 });
 
 // ── Product photo carousels ──────────────────────────────────────
